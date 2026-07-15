@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>uPull.ai — Case Studies (test5)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ── RESET & BASE ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy:       #0A192F;
+      --nhs-blue:   #005EB8;
+      --orange:     #E65F2B;
+      --bg:         #F8FAFC;
+      --white:      #FFFFFF;
+      --muted:      #64748B;
+      --border:     #E2E8F0;
+      --text:       #1E293B;
+      /* AI type colours */
+      --col-ambient:  #0284c7;
+      --col-agentic:  #7c3aed;
+      --col-clinical: #0d9488;
+      --col-robotic:  #dc2626;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 1rem; color: var(--text);
+      background: var(--bg); line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── PREVIEW BANNER ── */
+    .preview-banner {
+      background: linear-gradient(90deg, #7c3aed, #005EB8);
+      color: #fff; text-align: center;
+      padding: 0.45rem 1rem; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.4px;
+    }
+    .preview-banner a { color: #ffd700; text-decoration: none; }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--navy); position: sticky; top: 0; z-index: 1000;
+      border-bottom: 3px solid var(--nhs-blue);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    .nav-container {
+      max-width: 1200px; margin: 0 auto; padding: 0.85rem 5%;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem; flex-wrap: wrap;
+    }
+    .logo-wrap { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; cursor: pointer; }
+    .logo-svg { width: 40px; height: 40px; flex-shrink: 0; }
+    .orbit-ring { transform-origin: 20px 20px; animation: spinOrbit 6s linear infinite; }
+    .spin-reverse { transform-origin: 20px 20px; animation: spinOrbit 5s linear infinite reverse; }
+    .core-pulse { transform-origin: 20px 20px; animation: pulseCore 2s ease-in-out infinite; }
+    .arrow-pull { animation: arrowSlide 1.8s ease-in-out infinite; }
+    @keyframes spinOrbit { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+    @keyframes pulseCore { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.7;transform:scale(1.1)} }
+    @keyframes arrowSlide { 0%{transform:translateX(-3px);opacity:.4} 50%{transform:translateX(2px);opacity:1} 100%{transform:translateX(-3px);opacity:.4} }
+    .logo-text-wrap { display: flex; flex-direction: column; line-height: 1; }
+    .logo-wordmark { font-size: 1.5rem; font-weight: 900; color: #fff; letter-spacing: -1px; }
+    .logo-wordmark .dot-ai { color: var(--orange); }
+    .logo-tagline { font-size: 0.58rem; color: #94a3b8; letter-spacing: 2px; text-transform: uppercase; margin-top: 0.1rem; }
+
+    .nav-stack { display: flex; flex-direction: column; align-items: flex-end; gap: 0.4rem; }
+    nav { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 0.9rem; }
+    nav a, nav button {
+      color: #fff; text-decoration: none; font-weight: 500; font-size: 0.88rem;
+      background: none; border: none; cursor: pointer; padding: 0.2rem 0;
+      font-family: 'Inter', sans-serif; transition: color 0.2s;
+    }
+    nav a:hover, nav button:hover { color: var(--orange); }
+    .sub-nav { border-top: 1px solid rgba(255,255,255,0.12); padding-top: 0.25rem; }
+    .sub-nav a, .sub-nav button { color: #94a3b8; font-size: 0.8rem; }
+    .sub-nav a.current, .sub-nav button.current { color: var(--orange); }
+    .cta-btn {
+      background: var(--orange); color: #fff; padding: 0.5rem 1.1rem;
+      border-radius: 5px; font-weight: 700; border: none; cursor: pointer;
+      font-size: 0.85rem; text-decoration: none; display: inline-block;
+      transition: background 0.2s, transform 0.1s; font-family: 'Inter', sans-serif;
+    }
+    .cta-btn:hover { background: #c54f20; transform: translateY(-1px); }
+
+    /* ── MAIN ── */
+    main { max-width: 1100px; margin: 0 auto; padding: 2.5rem 5% 4rem; }
+
+    /* ── PAGE TITLE ── */
+    .page-title-block { text-align: center; margin-bottom: 2.5rem; }
+    .page-title-block h1 { font-size: clamp(1.7rem, 4vw, 2.4rem); color: var(--navy); font-weight: 800; letter-spacing: -0.5px; margin-bottom: 0.5rem; }
+    .page-title-block p { color: var(--muted); font-size: 1rem; max-width: 640px; margin: 0 auto; }
+
+    /* ── FILTER BAR ── */
+    .filter-bar {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.2rem 1.5rem;
+      display: flex; flex-wrap: wrap; gap: 1rem; align-items: center;
+      margin-bottom: 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .filter-group { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; }
+    .filter-group-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.7px; color: var(--muted); margin-right: 0.3rem; }
+    .ftag {
+      padding: 0.3rem 0.85rem; border-radius: 20px; font-size: 0.78rem;
+      font-weight: 700; border: 2px solid; cursor: pointer;
+      transition: all 0.15s; background: transparent; font-family: 'Inter', sans-serif;
+    }
+    .ftag.all   { border-color: var(--navy);          color: var(--navy); }
+    .ftag.all.active   { background: var(--navy);     color: #fff; }
+    .ftag.ambient  { border-color: var(--col-ambient);  color: var(--col-ambient); }
+    .ftag.ambient.active  { background: var(--col-ambient); color: #fff; }
+    .ftag.agentic  { border-color: var(--col-agentic);  color: var(--col-agentic); }
+    .ftag.agentic.active  { background: var(--col-agentic); color: #fff; }
+    .ftag.clinical { border-color: var(--col-clinical); color: var(--col-clinical); }
+    .ftag.clinical.active { background: var(--col-clinical); color: #fff; }
+    .ftag.robotic  { border-color: var(--col-robotic);  color: var(--col-robotic); }
+    .ftag.robotic.active  { background: var(--col-robotic); color: #fff; }
+    .ftag.op   { border-color: var(--orange);    color: var(--orange); }
+    .ftag.op.active   { background: var(--orange); color: #fff; }
+    .ftag.cl   { border-color: var(--col-clinical); color: var(--col-clinical); }
+    .ftag.cl.active   { background: var(--col-clinical); color: #fff; }
+
+    .filter-divider { width: 1px; height: 28px; background: var(--border); }
+
+    /* ── RESULTS META ── */
+    .results-meta {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 1.2rem; flex-wrap: wrap; gap: 0.5rem;
+    }
+    .results-meta span { font-size: 0.85rem; color: var(--muted); }
+    .results-meta strong { color: var(--navy); }
+
+    /* ── GRID ── */
+    .cases-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.4rem;
+    }
+
+    /* ── CASE CARD ── */
+    .case-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 12px; overflow: hidden; display: flex;
+      flex-direction: column; transition: transform 0.18s, box-shadow 0.18s;
+    }
+    .case-card:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(0,0,0,0.08); }
+    .card-top { height: 5px; flex-shrink: 0; }
+    .card-body { padding: 1.3rem 1.4rem; flex: 1; display: flex; flex-direction: column; }
+    .card-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 0.5rem; margin-bottom: 0.8rem; flex-wrap: wrap; }
+    .ai-tags { display: flex; gap: 0.35rem; flex-wrap: wrap; }
+    .ai-tag {
+      font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px;
+      color: #fff; padding: 0.18rem 0.55rem; border-radius: 4px;
+    }
+    .type-badge {
+      font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px;
+      padding: 0.18rem 0.55rem; border-radius: 4px;
+    }
+    .type-clinical { background: #ddf2f0; color: #0d6b61; }
+    .type-operational { background: #fff0e8; color: #b84b18; }
+    .card-org { font-size: 0.75rem; font-weight: 600; color: var(--nhs-blue); margin-bottom: 0.3rem; }
+    .card-title { font-size: 1rem; font-weight: 800; color: var(--navy); margin-bottom: 0.5rem; line-height: 1.3; }
+    .card-desc { font-size: 0.85rem; color: var(--muted); flex: 1; margin-bottom: 0.9rem; line-height: 1.55; }
+    .card-result {
+      font-weight: 700; font-size: 0.85rem; color: var(--navy);
+      background: #f1f5f9; padding: 0.45rem 0.7rem; border-radius: 6px;
+      margin-bottom: 0.9rem;
+    }
+    .card-footer { display: flex; gap: 0.6rem; justify-content: space-between; align-items: center; }
+    .learn-btn {
+      font-size: 0.8rem; font-weight: 700; color: var(--nhs-blue);
+      text-decoration: none; padding: 0.35rem 0.8rem;
+      border: 1.5px solid var(--nhs-blue); border-radius: 5px;
+      transition: all 0.15s; background: transparent;
+      font-family: 'Inter', sans-serif; cursor: pointer;
+    }
+    .learn-btn:hover { background: var(--nhs-blue); color: #fff; }
+    .stage-badge {
+      font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px;
+      background: #e0f2fe; color: var(--nhs-blue); padding: 0.2rem 0.6rem; border-radius: 12px;
+    }
+
+    /* ── EMPTY STATE ── */
+    .empty-state {
+      text-align: center; padding: 4rem 2rem; color: var(--muted);
+      grid-column: 1 / -1;
+    }
+    .empty-state h3 { color: var(--navy); font-size: 1.1rem; margin-bottom: 0.4rem; }
+
+    /* ── FOOTER ── */
+    footer { background: #09111e; color: #94a3b8; padding: 2rem 5%; text-align: center; font-size: 0.82rem; margin-top: 2rem; }
+    footer strong { color: #fff; }
+    footer a { color: #94a3b8; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      .filter-bar { padding: 1rem; gap: 0.7rem; }
+      .filter-divider { display: none; }
+      .page-title-block h1 { font-size: 1.5rem; }
+      .nav-container { flex-direction: column; align-items: stretch; }
+      .logo-wrap { align-self: flex-start; }
+      .nav-stack { width: 100%; align-items: stretch; }
+      nav { overflow-x: auto; flex-wrap: nowrap; padding-bottom: 0.3rem; }
+      nav a, nav button { white-space: nowrap; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- PREVIEW BANNER -->
+<div class="preview-banner">
+  🧪 COLLABORATOR PREVIEW — test5.html &nbsp;|&nbsp; <a href="index.html">← Back to Live Site</a> &nbsp;|&nbsp; Updated: July 2026
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="nav-container">
+    <a href="index.html" class="logo-wrap">
+      <svg class="logo-svg" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g class="orbit-ring">
+          <circle cx="20" cy="20" r="18" stroke="#005EB8" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.6"/>
+          <circle cx="20" cy="3" r="2.8" fill="#E65F2B"/>
+          <circle cx="37" cy="20" r="1.8" fill="#005EB8"/>
+        </g>
+        <g class="spin-reverse">
+          <circle cx="20" cy="20" r="12" stroke="#0d9488" stroke-width="1" stroke-dasharray="2 4" opacity="0.5"/>
+        </g>
+        <circle class="core-pulse" cx="20" cy="20" r="7.5" fill="#0A192F" stroke="#E65F2B" stroke-width="2"/>
+        <g class="arrow-pull">
+          <path d="M15 20 L23 20" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+          <path d="M20 17 L23 20 L20 23" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </g>
+      </svg>
+      <div class="logo-text-wrap">
+        <span class="logo-wordmark">uPull<span class="dot-ai">.ai</span></span>
+        <span class="logo-tagline">Pull — Don't Push</span>
+      </div>
+    </a>
+
+    <div class="nav-stack">
+      <nav>
+        <a href="index.html">Strategic Core</a>
+        <a href="case-studies.html" class="current">Case Studies</a>
+        <a href="roi.html">ROI Calculator</a>
+        <a href="community.html">Community</a>
+        <a href="faqs.html">FAQs</a>
+        <a href="mailto:info@upull.ai" class="cta-btn">Get Started</a>
+      </nav>
+      <nav class="sub-nav">
+        <a href="case-studies.html">Classic View</a>
+        <a href="test5.html" class="current">Filter View ✦</a>
+        <a href="test3.html">Collaborator Hub</a>
+        <a href="test3.html#learning">AI Learning</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<!-- MAIN -->
+<main>
+  <div class="page-title-block">
+    <h1>NHS AI Case Studies</h1>
+    <p>30 validated use cases across Ambient, Agentic, Clinical, and Robotic AI — filtered by AI type and workflow category.</p>
+  </div>
+
+  <!-- FILTER BAR -->
+  <div class="filter-bar" role="search" aria-label="Filter case studies">
+    <div class="filter-group">
+      <span class="filter-group-label">AI Type</span>
+      <button class="ftag all active"     onclick="setAI('all',this)">All</button>
+      <button class="ftag ambient"        onclick="setAI('ambient',this)">🎙️ Ambient</button>
+      <button class="ftag agentic"        onclick="setAI('agentic',this)">🤖 Agentic</button>
+      <button class="ftag clinical"       onclick="setAI('clinical',this)">🩺 Clinical</button>
+      <button class="ftag robotic"        onclick="setAI('robotic',this)">⚙️ Robotic</button>
+    </div>
+    <div class="filter-divider" aria-hidden="true"></div>
+    <div class="filter-group">
+      <span class="filter-group-label">Workflow</span>
+      <button class="ftag all active"     onclick="setType('all',this)" id="type-all">All</button>
+      <button class="ftag cl"             onclick="setType('clinical',this)" id="type-clinical">Clinical</button>
+      <button class="ftag op"             onclick="setType('operational',this)" id="type-operational">Operational</button>
+    </div>
+  </div>
+
+  <!-- RESULTS META -->
+  <div class="results-meta">
+    <span><strong id="result-count">30</strong> case studies</span>
+    <span id="active-filters-label" style="color:var(--muted); font-size:0.8rem;"></span>
+  </div>
+
+  <!-- GRID -->
+  <div class="cases-grid" id="cases-grid"></div>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <p><strong>uPull.ai Ltd.</strong> &mdash; London, UK &mdash; <a href="mailto:info@upull.ai">info@upull.ai</a></p>
+  <p style="margin-top:0.4rem; opacity:0.5; font-size:0.75rem;">🧪 Collaborator Preview — test5.html — Not for public distribution — © 2026 uPull.ai Ltd.</p>
+</footer>
+
+<script>
+const cases = [
+  // AMBIENT (8)
+  { ai:['ambient'], type:'clinical', stage:'Stage B', org:'NHS Midlands Trust', title:'Ambient Voice Scribing — Outpatient Clinics', desc:'Real-time AI captures clinician–patient conversations and drafts structured EHR entries automatically, eliminating post-clinic admin.', result:'📋 Documentation time cut 43% in week 1', learnCat:'ambient' },
+  { ai:['ambient'], type:'clinical', stage:'Stage A', org:'South East GP Network', title:'AI Medical Scribe for GP Appointments', desc:'Nuance DAX deployed in primary care to produce SOAP notes from consultation audio, validated by the GP before saving to EMIS.', result:'⏱️ 15 min saved per session per GP', learnCat:'ambient' },
+  { ai:['ambient'], type:'clinical', stage:'Stage B', org:'London Mental Health Trust', title:'Ambient Documentation in Psychiatric Consultations', desc:'Voice AI captures complex mental health consultations, producing clinical summaries with human-in-the-loop approval before record submission.', result:'🧠 34% reduction in post-session admin', learnCat:'ambient' },
+  { ai:['ambient'], type:'operational', stage:'Stage A', org:'NHS Community Trust — North West', title:'Community Nurse Visit Documentation', desc:'Ambient AI deployed on mobile devices captures home visit notes hands-free, syncing structured data to the care record system on return.', result:'📱 Zero keyboard input during visits', learnCat:'ambient' },
+  { ai:['ambient'], type:'clinical', stage:'Stage B', org:'ICB — Yorkshire', title:'A&E Triage Ambient Capture', desc:'Voice AI records triage assessments in real time, pre-populating the ED system with structured fields for nurse validation.', result:'⚡ Triage documentation 58% faster', learnCat:'ambient' },
+  { ai:['ambient','clinical'], type:'clinical', stage:'Stage C', org:'NHS Acute Trust — Bristol', title:'Ward Round AI Note Summarisation', desc:'Ambient AI captures multi-clinician ward rounds and produces per-patient summaries with action items, reducing post-round documentation burden.', result:'🏥 Ward round notes completed 70% faster', learnCat:'ambient' },
+  { ai:['ambient'], type:'clinical', stage:'Stage A', org:'NHS Orthopaedics — Midlands', title:'Pre-op Assessment Voice Documentation', desc:'Clinicians dictate pre-operative assessments verbally; AI converts to structured consent and risk forms ready for review and signature.', result:'✍️ Pre-op paperwork time halved', learnCat:'ambient' },
+  { ai:['ambient'], type:'operational', stage:'Stage B', org:'Primary Care Network — Greater London', title:'Read Code & SNOMED Auto-Tagging', desc:'Ambient AI listens to consultations and automatically suggests SNOMED CT and Read codes for clinical coding, reducing coder workload.', result:'🔖 Coding accuracy improved 22%', learnCat:'ambient' },
+  // AGENTIC (8)
+  { ai:['agentic'], type:'operational', stage:'Stage B', org:'NHS Acute Trust — South East', title:'Automated Referral Triage Classification', desc:'Agentic pipeline extracts patient histories from referral letters, classifies urgency, and routes directly into the EHR triage queue — no manual input.', result:'⚡ 82% of referrals classified automatically', learnCat:'agentic' },
+  { ai:['agentic'], type:'operational', stage:'Stage B', org:'ICB — Midlands', title:'AI-Powered Discharge Summary Generation', desc:'Agentic AI pulls structured data from the EHR, generates a compliant discharge summary, and queues it for clinician approval within minutes of discharge.', result:'📄 Summary turnaround from 24h to 45 min', learnCat:'agentic' },
+  { ai:['agentic','robotic'], type:'operational', stage:'Stage C', org:'NHS Digital Transformation — Wales', title:'End-to-End Appointment Slot Optimisation', desc:'Multi-agent system monitors cancellations in real time, re-offers slots to waitlisted patients via SMS, and updates the scheduling system automatically.', result:'📅 DNA rate reduced from 18% to 7%', learnCat:'agentic' },
+  { ai:['agentic'], type:'clinical', stage:'Stage A', org:'NHS Acute Trust — Leeds', title:'Multi-Step Clinical Pathway Orchestration', desc:'Agentic orchestrator coordinates pre-assessment, ordering, and follow-up tasks across departments for elective surgical patients — reducing pathway gaps.', result:'🗂️ Pathway completion rate up 31%', learnCat:'agentic' },
+  { ai:['agentic'], type:'operational', stage:'Stage B', org:'NHS Trust — East Anglia', title:'Automated Clinical Coding from Notes', desc:'Agentic AI reads completed episode notes and generates ICD-10 and OPCS-4 codes for coder review, dramatically reducing manual coding time.', result:'🔢 Coder productivity improved 40%', learnCat:'agentic' },
+  { ai:['agentic'], type:'operational', stage:'Stage A', org:'Community Trust — North East', title:'Carer Coordination Agentic Scheduler', desc:'Autonomous agent matches community nurses and care workers to patient visit schedules, optimising travel routes and minimising gaps in care.', result:'🚗 Route efficiency improved 28%', learnCat:'agentic' },
+  { ai:['agentic','clinical'], type:'clinical', stage:'Stage B', org:'Integrated Care System — South West', title:'Patient Letter Generation & Personalisation', desc:'Agentic AI generates personalised outpatient letters from structured EHR data — covering appointment details, preparation instructions, and follow-up actions.', result:'✉️ Letter production time cut 85%', learnCat:'agentic' },
+  { ai:['agentic'], type:'operational', stage:'Stage B', org:'NHS Procurement — England', title:'Supply Chain Demand Forecasting Agent', desc:'AI agent analyses historical usage data and seasonal patterns to generate accurate consumable supply forecasts, reducing wastage and stockouts.', result:'📦 Waste reduced 19%, stockouts eliminated', learnCat:'agentic' },
+  // CLINICAL (8)
+  { ai:['clinical'], type:'clinical', stage:'Stage B', org:'NHS Cardiology — London', title:'Continuous Cardiac Monitoring & Anomaly Detection', desc:'Multi-lead ECG streaming agent maps cardiovascular patterns and isolates anomalies before they become clinical events — with zero-latency alerts to the clinical team.', result:'❤️ 99.4% precision — zero missed events in trial', learnCat:'clinical' },
+  { ai:['clinical'], type:'clinical', stage:'Stage B', org:'NHS Radiology — Birmingham', title:'AI-Assisted Chest X-Ray Triage', desc:'Deep learning model flags abnormal chest X-rays for priority radiologist review, reducing time-to-report for urgent findings.', result:'🩻 Urgent report turnaround cut by 55%', learnCat:'clinical' },
+  { ai:['clinical'], type:'clinical', stage:'Stage C', org:'NHS Oncology — Manchester', title:'Cancer MDT Meeting Pre-Preparation AI', desc:'AI synthesises patient history, imaging reports, and pathology results into structured MDT summaries, allowing clinicians to focus on decision-making not note-reading.', result:'🏥 MDT prep time cut from 45 min to 8 min', learnCat:'clinical' },
+  { ai:['clinical'], type:'clinical', stage:'Stage A', org:'GP Practice — Bristol', title:'Clinical Decision Support for Antibiotic Stewardship', desc:'AI analyses patient presentation, prior prescribing history, and local resistance data to recommend evidence-based antibiotic choices at point of prescribing.', result:'💊 Inappropriate prescribing reduced 27%', learnCat:'clinical' },
+  { ai:['clinical','agentic'], type:'clinical', stage:'Stage B', org:'NHS Diabetes — Yorkshire', title:'Predictive Risk Stratification for T2D Patients', desc:'ML model analyses structured EHR data to predict hospitalisation risk in Type 2 diabetic patients, enabling proactive community intervention.', result:'📊 Emergency admissions reduced 18%', learnCat:'clinical' },
+  { ai:['clinical'], type:'clinical', stage:'Stage A', org:'NHS Pathology — East Midlands', title:'Digital Pathology Slide Analysis', desc:'AI model analyses histology slides for cancer biomarkers, providing a confidence score and region-of-interest highlights to support pathologist review.', result:'🔬 Review time per slide reduced 48%', learnCat:'clinical' },
+  { ai:['clinical'], type:'clinical', stage:'Stage B', org:'NHS Urgent Care — London', title:'Sepsis Early Warning AI', desc:'Real-time AI monitors vital sign streams and NEWS2 scores, triggering early sepsis alerts to nursing staff before clinical deterioration is visually apparent.', result:'⚠️ Sepsis recognition 3.2 hours earlier on average', learnCat:'clinical' },
+  { ai:['clinical','ambient'], type:'clinical', stage:'Stage C', org:'NHS Ophthalmology — Wales', title:'Diabetic Retinopathy AI Screening', desc:'AI analyses retinal fundus photographs for diabetic retinopathy with 94% sensitivity, enabling nurse-led screening without ophthalmologist attendance.', result:'👁️ Screening throughput tripled', learnCat:'clinical' },
+  // ROBOTIC (6)
+  { ai:['robotic'], type:'operational', stage:'Stage A', org:'NHS Admin — North West', title:'Appointment Confirmation Letter RPA', desc:'RPA bots extract appointment data from PAS, generate personalised letters in Word, and dispatch them via NHS.net — fully replacing manual letter production.', result:'📬 4,200 letters/week fully automated', learnCat:'robotic' },
+  { ai:['robotic'], type:'operational', stage:'Stage B', org:'NHS Finance — Midlands', title:'Invoice Processing Automation', desc:'Blue Prism bots extract line items from supplier invoices, validate against PO data in Oracle, and process payments — eliminating a 3-person manual team.', result:'💰 Processing cost reduced 74%', learnCat:'robotic' },
+  { ai:['robotic','agentic'], type:'operational', stage:'Stage B', org:'NHS HR — East England', title:'Staff Onboarding Workflow Automation', desc:'RPA orchestrates identity verification, DBS checks, ESR system entry, and welcome email dispatch — a 22-step onboarding process reduced to one trigger.', result:'🧑‍⚕️ Onboarding time from 8 days to 1 day', learnCat:'robotic' },
+  { ai:['robotic'], type:'operational', stage:'Stage A', org:'NHS Pathology Lab — London', title:'Lab Result Distribution Bot', desc:"Automated bot monitors lab systems, extracts abnormal results, and routes them to the ordering clinician's inbox with priority flagging — replacing manual result chasing.", result:'🧬 Critical result notification time cut 91%', learnCat:'robotic' },
+  { ai:['robotic'], type:'operational', stage:'Stage C', org:'NHS Integrated Care System — South West', title:'Population Health Report Generation', desc:'Monthly population health reports previously requiring 3 days of analyst time are now generated overnight by an RPA + Python pipeline with zero manual input.', result:'📈 3-day report produced in 20 minutes', learnCat:'robotic' },
+  { ai:['robotic','clinical'], type:'operational', stage:'Stage B', org:'NHS Pharmacy — Birmingham', title:'Automated Medication Dispensing Reconciliation', desc:'RPA reconciles dispensed medication records against electronic prescriptions nightly, flagging discrepancies for pharmacist review and reducing audit burden.', result:'💊 Reconciliation errors reduced 88%', learnCat:'robotic' }
+];
+
+const AI_COLORS = { ambient:'#0284c7', agentic:'#7c3aed', clinical:'#0d9488', robotic:'#dc2626' };
+const AI_LABELS = { ambient:'🎙️ Ambient', agentic:'🤖 Agentic', clinical:'🩺 Clinical', robotic:'⚙️ Robotic' };
+
+let activeAI = 'all';
+let activeType = 'all';
+
+function setAI(val, el) {
+  activeAI = val;
+  document.querySelectorAll('.filter-group:first-child .ftag').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  render();
+}
+
+function setType(val, el) {
+  activeType = val;
+  document.querySelectorAll('#type-all, #type-clinical, #type-operational').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  render();
+}
+
+function render() {
+  const grid = document.getElementById('cases-grid');
+  const countEl = document.getElementById('result-count');
+  const labelEl = document.getElementById('active-filters-label');
+  let filtered = cases.filter(c => {
+    const aiOk   = activeAI === 'all'   || c.ai.includes(activeAI);
+    const typeOk = activeType === 'all' || c.type === activeType;
+    return aiOk && typeOk;
+  });
+  countEl.textContent = filtered.length;
+  const parts = [];
+  if (activeAI !== 'all')   parts.push(AI_LABELS[activeAI]);
+  if (activeType !== 'all') parts.push(activeType.charAt(0).toUpperCase() + activeType.slice(1));
+  labelEl.textContent = parts.length ? 'Filtered by: ' + parts.join(' + ') : '';
+  if (filtered.length === 0) {
+    grid.innerHTML = '<div class="empty-state"><h3>No cases match this filter</h3><p>Try selecting a different AI type or workflow category.</p></div>';
+    return;
+  }
+  grid.innerHTML = filtered.map(c => {
+    const colors = c.ai.map(a => AI_COLORS[a]);
+    const topStyle = c.ai.length === 1
+      ? `background:${colors[0]}`
+      : `background:linear-gradient(90deg,${colors.join(',')})`;
+    const aiTagsHTML = c.ai.map(a => `<span class="ai-tag" style="background:${AI_COLORS[a]}">${AI_LABELS[a]}</span>`).join('');
+    const typeClass = c.type === 'clinical' ? 'type-clinical' : 'type-operational';
+    const typeLabel = c.type === 'clinical' ? '🩺 Clinical' : '⚙️ Operational';
+    return `
+    <article class="case-card" data-ai="${c.ai.join(' ')}" data-type="${c.type}">
+      <div class="card-top" style="${topStyle}"></div>
+      <div class="card-body">
+        <div class="card-header">
+          <div class="ai-tags">${aiTagsHTML}</div>
+          <span class="type-badge ${typeClass}">${typeLabel}</span>
+        </div>
+        <div class="card-org">${c.org}</div>
+        <h2 class="card-title">${c.title}</h2>
+        <p class="card-desc">${c.desc}</p>
+        <div class="card-result">${c.result}</div>
+        <div class="card-footer">
+          <a href="test3.html" class="learn-btn" onclick="goLearn('${c.learnCat}',event)">Learn More →</a>
+          <span class="stage-badge">${c.stage}</span>
+        </div>
+      </div>
+    </article>`;
+  }).join('');
+}
+
+function goLearn(cat, e) {
+  e.preventDefault();
+  try { sessionStorage.setItem('upull_learn_filter', cat); } catch(_) {}
+  window.location.href = 'test3.html#learning-' + cat;
+}
+
+render();
+</script>
+</body>
+</html>
