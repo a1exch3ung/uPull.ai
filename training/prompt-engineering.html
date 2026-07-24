@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prompt Engineering Pathway · uPull.ai Academy</title>
+  <meta name="description" content="A free, beginner-to-advanced prompt engineering learning pathway for NHS and public sector staff — built from free YouTube videos, vendor courses and open curricula." />
+  <style>
+    :root {
+      --navy: #0f172a;
+      --blue: #2563eb;
+      --orange: #f97316;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --bg: #f8fafc;
+      --card-bg: #fff;
+      --beginner: #16a34a;
+      --intermediate: #d97706;
+      --advanced: #dc2626;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--navy); line-height: 1.6; }
+
+    /* NAV */
+    header { background: var(--navy); color: #fff; padding: .9rem 1.5rem; display: flex; align-items: center; justify-content: space-between; }
+    .logo { font-weight: 800; font-size: 1.2rem; text-decoration: none; color: #fff; }
+    .logo span { color: var(--orange); }
+    .logo-tag { font-size: .75rem; opacity: .7; margin-left: .3rem; }
+    .cta-btn { background: var(--blue); color: #fff; padding: .5rem 1.1rem; border-radius: 8px; font-weight: 700; font-size: .85rem; text-decoration: none; border: none; cursor: pointer; }
+
+    /* BREADCRUMB */
+    .breadcrumb { background: #fff; border-bottom: 1px solid var(--border); padding: .55rem 1.5rem; font-size: .8rem; color: var(--muted); }
+    .breadcrumb a { color: var(--blue); text-decoration: none; }
+    .bc-sep { margin: 0 .4rem; }
+
+    /* HERO */
+    .hero-strip { background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%); color: #fff; padding: 2.5rem 1.5rem; display: flex; gap: 2rem; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+    .hero-strip h1 { font-size: 2rem; font-weight: 800; }
+    .hero-strip h1 span { color: var(--orange); }
+    .hero-strip p { opacity: .9; margin-top: .4rem; max-width: 600px; }
+    .hero-badges { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
+    .hero-badge { background: rgba(255,255,255,.15); border-radius: 20px; padding: .25rem .75rem; font-size: .78rem; font-weight: 600; }
+    .hero-actions { margin-top: 1.2rem; display: flex; gap: .7rem; flex-wrap: wrap; }
+    .hero-emoji { font-size: 3rem; flex-shrink: 0; text-align: center; }
+
+    /* SECTION NAV */
+    .section-nav { display: flex; gap: .5rem; padding: 1rem 1.5rem; background: #fff; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+    .section-nav-btn { background: none; border: 1.5px solid var(--border); border-radius: 8px; padding: .45rem 1rem; font-size: .85rem; font-weight: 600; color: var(--muted); cursor: pointer; }
+    .section-nav-btn.active { background: var(--blue); color: #fff; border-color: var(--blue); }
+
+    /* SHELL */
+    .academy-shell { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem 4rem; }
+    .academy-view { display: none; padding-top: 2rem; }
+    .academy-view.active-view { display: block; }
+    .section-title { font-size: 1.6rem; font-weight: 800; color: var(--navy); margin-bottom: .4rem; }
+    .section-subtitle { color: var(--muted); font-size: .95rem; margin-bottom: 1.5rem; max-width: 680px; }
+
+    /* INFO GRID */
+    .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 1rem; margin-top: 1.5rem; }
+    .info-card { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 1.2rem; }
+    .info-num { display: block; font-size: 2rem; font-weight: 900; color: var(--blue); opacity: .2; line-height: 1; margin-bottom: .5rem; }
+    .info-card h3 { font-size: .95rem; font-weight: 700; color: var(--navy); margin-bottom: .4rem; }
+    .info-card p { font-size: .82rem; color: var(--muted); }
+
+    /* CPD BOX */
+    .cpd-box { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; display: flex; gap: 2rem; align-items: flex-start; flex-wrap: wrap; }
+    .cpd-text { flex: 1; min-width: 240px; }
+    .cpd-text h2 { font-size: 1.1rem; font-weight: 800; color: var(--navy); margin-bottom: .6rem; }
+    .cpd-facts { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
+    .cpd-fact { background: #eff6ff; color: var(--blue); border-radius: 20px; padding: .25rem .75rem; font-size: .78rem; font-weight: 600; }
+
+    /* TIMELINE (pathway steps) */
+    .timeline { position: relative; margin-top: 1.5rem; }
+    .timeline::before { content: ''; position: absolute; left: 28px; top: 0; bottom: 0; width: 2px; background: var(--border); }
+    .timeline-step { display: flex; gap: 1.2rem; margin-bottom: 2rem; position: relative; }
+    .step-dot { width: 58px; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; }
+    .step-num { width: 40px; height: 40px; border-radius: 50%; background: var(--blue); color: #fff; font-weight: 800; font-size: 1rem; display: flex; align-items: center; justify-content: center; z-index: 1; position: relative; }
+    .step-body { flex: 1; }
+    .step-body h3 { font-size: 1rem; font-weight: 800; color: var(--navy); margin-bottom: .2rem; }
+    .step-body .step-meta { font-size: .78rem; color: var(--muted); margin-bottom: .6rem; }
+    .step-body p { font-size: .85rem; color: #374151; }
+
+    /* COURSE CARDS GRID */
+    .path-cards { display: flex; gap: .75rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .path-card { border-radius: 10px; padding: .6rem 1rem; font-size: .82rem; font-weight: 700; color: #fff; }
+    .path-card.beginner { background: var(--beginner); }
+    .path-card.intermediate { background: var(--intermediate); }
+    .path-card.advanced { background: var(--advanced); }
+
+    .filter-bar { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: 1.5rem; align-items: center; }
+    .search-wrap { position: relative; flex: 1; min-width: 200px; max-width: 340px; }
+    .search-icon::before { content: '🔍'; position: absolute; left: .6rem; top: 50%; transform: translateY(-50%); font-size: .8rem; }
+    .filter-bar input { width: 100%; padding: .5rem .75rem .5rem 2rem; border: 1.5px solid var(--border); border-radius: 8px; font-size: .85rem; outline: none; }
+    .filter-pill { background: none; border: 1.5px solid var(--border); border-radius: 20px; padding: .3rem .85rem; font-size: .8rem; font-weight: 600; color: var(--muted); cursor: pointer; }
+    .filter-pill.active { background: var(--blue); color: #fff; border-color: var(--blue); }
+
+    .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; }
+    .course-card { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 1.2rem; display: flex; flex-direction: column; gap: .5rem; transition: box-shadow .15s; }
+    .course-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,.08); }
+    .course-card.hidden { display: none; }
+    .card-top { display: flex; align-items: center; justify-content: space-between; gap: .5rem; }
+    .level-tag { border-radius: 20px; padding: .2rem .65rem; font-size: .72rem; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: .04em; }
+    .level-tag.beginner { background: var(--beginner); }
+    .level-tag.intermediate { background: var(--intermediate); }
+    .level-tag.advanced { background: var(--advanced); }
+    .free-tag { background: #f0fdf4; color: var(--beginner); border: 1px solid #bbf7d0; border-radius: 20px; padding: .2rem .65rem; font-size: .72rem; font-weight: 700; }
+    .card-provider { font-size: .72rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
+    .card-title { font-size: .95rem; font-weight: 800; color: var(--navy); }
+    .card-desc { font-size: .82rem; color: #374151; }
+    .card-meta { font-size: .76rem; color: var(--muted); }
+    .card-meta span { margin-right: .75rem; }
+    .card-expect { background: #eff6ff; border-radius: 8px; padding: .5rem .75rem; font-size: .78rem; color: var(--blue); }
+    .card-expect strong { display: block; font-size: .7rem; text-transform: uppercase; letter-spacing: .05em; margin-bottom: .15rem; }
+    .card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: .5rem; border-top: 1px solid var(--border); }
+    .card-cpd { font-size: .78rem; font-weight: 700; color: var(--blue); }
+    .btn-sm { display: inline-block; background: var(--blue); color: #fff; padding: .35rem .8rem; border-radius: 7px; font-size: .78rem; font-weight: 700; text-decoration: none; }
+    .btn-sm:hover { background: #1d4ed8; }
+
+    /* FOOTER */
+    footer { background: var(--navy); color: #94a3b8; text-align: center; padding: 1.5rem; font-size: .8rem; margin-top: 3rem; }
+    footer strong { color: #fff; }
+    footer a { color: #94a3b8; }
+    footer p + p { margin-top: .5rem; }
+
+    @media (max-width: 640px) {
+      .hero-strip h1 { font-size: 1.4rem; }
+      .cards-grid { grid-template-columns: 1fr; }
+      .timeline::before { left: 20px; }
+      .step-num { width: 32px; height: 32px; font-size: .85rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="../index.html" class="logo">uPull<span>.</span>ai<span class="logo-tag">uGrowX</span></a>
+  <a href="mailto:info@upull.ai" class="cta-btn">Get in touch</a>
+</header>
+
+<div class="breadcrumb">
+  <div>
+    <a href="../index.html">Home</a>
+    <span class="bc-sep">›</span>
+    <a href="../academy.html">Academy</a>
+    <span class="bc-sep">›</span>
+    <span>Prompt Engineering Pathway</span>
+  </div>
+</div>
+
+<div class="hero-strip">
+  <div>
+    <h1>Prompt <span>Engineering</span> Pathway</h1>
+    <p>A researched, beginner-to-advanced learning route for NHS and public sector staff who want to get the most out of AI tools — built entirely from free YouTube videos, open curricula and vendor training.</p>
+    <div class="hero-badges">
+      <span class="hero-badge">Beginner to Advanced</span>
+      <span class="hero-badge">Free for NHS</span>
+      <span class="hero-badge">CPD Recognised</span>
+      <span class="hero-badge">YouTube &amp; Open Courses</span>
+      <span class="hero-badge">No Tech Background Needed</span>
+    </div>
+    <div class="hero-actions">
+      <button class="cta-btn" onclick="showSection('pathway')">Follow the pathway</button>
+      <button class="cta-btn" style="background:transparent;border:1.5px solid rgba(255,255,255,.4)" onclick="showSection('library')">Browse all courses</button>
+    </div>
+  </div>
+  <div class="hero-emoji">✍️</div>
+</div>
+
+<nav class="section-nav" aria-label="Prompt Engineering sections">
+  <button class="section-nav-btn active" data-section="overview" onclick="showSection('overview')">Overview &amp; CPD</button>
+  <button class="section-nav-btn" data-section="pathway" onclick="showSection('pathway')">Structured Pathway</button>
+  <button class="section-nav-btn" data-section="library" onclick="showSection('library')">Full Course Library</button>
+</nav>
+
+<div class="academy-shell">
+
+  <!-- VIEW 1 — OVERVIEW -->
+  <div id="section-overview" class="academy-view active-view">
+    <section style="padding-top:.5rem">
+      <h2 class="section-title">How this pathway works</h2>
+      <p class="section-subtitle">One structured route — from writing your first prompt to designing production-grade prompt systems — built entirely from free resources and mapped to CPD credits.</p>
+      <div class="info-grid">
+        <div class="info-card">
+          <span class="info-num">01</span>
+          <h3>Start with the foundations</h3>
+          <p>Every learner begins with what prompting is, why it matters, and how large language models actually respond to input — no prior AI experience needed.</p>
+        </div>
+        <div class="info-card">
+          <span class="info-num">02</span>
+          <h3>Build technique progressively</h3>
+          <p>Move from basic instructions to advanced techniques like chain-of-thought, few-shot learning, role prompting, and structured output formatting.</p>
+        </div>
+        <div class="info-card">
+          <span class="info-num">03</span>
+          <h3>Apply in healthcare &amp; public sector</h3>
+          <p>Every stage includes practical exercises relevant to NHS workflows — clinical note summaries, policy drafting, triage scripts, and report generation.</p>
+        </div>
+        <div class="info-card">
+          <span class="info-num">04</span>
+          <h3>Earn CPD credits</h3>
+          <p>Every course carries CPD credits. Complete the full pathway to earn the uPull.ai Prompt Engineering Practitioner badge — shareable on LinkedIn.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="cpd" style="margin-top:2rem">
+      <h2 class="section-title">CPD credits on this pathway</h2>
+      <p class="section-subtitle">Credits are earned as you complete each course and count toward three recognition tiers.</p>
+      <div class="cpd-box">
+        <div class="cpd-text">
+          <h2>How CPD works here</h2>
+          <p>1 hour of structured learning = 1 CPD credit. Practical tasks earn 5 bonus credits each. Complete the full pathway (all six stages) to reach <strong>Prompt Engineering Specialist</strong> tier.</p>
+          <div class="cpd-facts">
+            <span class="cpd-fact">1 hr learning = 1 CPD credit</span>
+            <span class="cpd-fact">Awareness tier: 5–10 credits</span>
+            <span class="cpd-fact">Practitioner tier: 11–25 credits</span>
+            <span class="cpd-fact">Specialist tier: 26+ credits</span>
+            <span class="cpd-fact">Free for NHS &amp; public sector</span>
+          </div>
+        </div>
+        <table style="font-size:.82rem;border-collapse:collapse;min-width:260px">
+          <thead><tr style="background:#f1f5f9"><th style="padding:.5rem .75rem;text-align:left">Stage</th><th style="padding:.5rem .75rem;text-align:left">Typical CPD</th></tr></thead>
+          <tbody>
+            <tr><td style="padding:.4rem .75rem;border-top:1px solid var(--border)">Stage 1 – Foundations</td><td style="padding:.4rem .75rem;border-top:1px solid var(--border)">2–3 credits</td></tr>
+            <tr><td style="padding:.4rem .75rem;border-top:1px solid var(--border)">Stage 2 – Core Techniques</td><td style="padding:.4rem .75rem;border-top:1px solid var(--border)">3–5 credits</td></tr>
+            <tr><td style="padding:.4rem .75rem;border-top:1px solid var(--border)">Stage 3 – Intermediate</td><td style="padding:.4rem .75rem;border-top:1px solid var(--border)">4–6 credits</td></tr>
+            <tr><td style="padding:.4rem .75rem;border-top:1px solid var(--border)">Stage 4 – Advanced</td><td style="padding:.4rem .75rem;border-top:1px solid var(--border)">6–8 credits</td></tr>
+            <tr><td style="padding:.4rem .75rem;border-top:1px solid var(--border)">Stage 5 – Systems &amp; APIs</td><td style="padding:.4rem .75rem;border-top:1px solid var(--border)">8–12 credits</td></tr>
+            <tr><td style="padding:.4rem .75rem;border-top:1px solid var(--border)">Stage 6 – Practical Capstone</td><td style="padding:.4rem .75rem;border-top:1px solid var(--border)">5 bonus credits</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <!-- VIEW 2 — STRUCTURED PATHWAY -->
+  <div id="section-pathway" class="academy-view">
+    <section style="padding-top:.5rem">
+      <h2 class="section-title">The Prompt Engineering Pathway</h2>
+      <p class="section-subtitle">Six progressive stages — follow them in order or jump to the stage that matches your current level.</p>
+
+      <div class="timeline" id="pathwayTimeline">
+
+        <div class="timeline-step">
+          <div class="step-dot"><div class="step-num">1</div></div>
+          <div class="step-body">
+            <h3>Stage 1 — Foundations <span style="font-size:.78rem;font-weight:400;color:var(--muted)">(Beginner · Free)</span></h3>
+            <p class="step-meta">2–3 CPD credits · No prior experience needed</p>
+            <p>Understand what large language models are, why the wording of a prompt changes the output, and how to write your first clear instruction. All resources are free and require no technical background.</p>
+            <div style="margin-top:.8rem;display:flex;flex-wrap:wrap;gap:.5rem">
+              <a href="https://www.youtube.com/watch?v=_ZvnD73m40o" target="_blank" rel="noopener" class="btn-sm">▶ Prompt Eng. Intro – Andrej Karpathy (YouTube)</a>
+              <a href="https://learnprompting.org/docs/intro" target="_blank" rel="noopener" class="btn-sm">Learn Prompting – Free Guide</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-step">
+          <div class="step-dot"><div class="step-num">2</div></div>
+          <div class="step-body">
+            <h3>Stage 2 — Core Techniques <span style="font-size:.78rem;font-weight:400;color:var(--muted)">(Beginner · Free)</span></h3>
+            <p class="step-meta">3–5 CPD credits · After Stage 1</p>
+            <p>Learn the fundamental techniques: zero-shot, one-shot, few-shot, role prompting, and instruction formatting. Practice rewriting vague requests into precise, effective prompts.</p>
+            <div style="margin-top:.8rem;display:flex;flex-wrap:wrap;gap:.5rem">
+              <a href="https://www.youtube.com/watch?v=dOxUroR57xs" target="_blank" rel="noopener" class="btn-sm">▶ Few-Shot &amp; Zero-Shot – DeepLearning.AI (YouTube)</a>
+              <a href="https://www.promptingguide.ai/" target="_blank" rel="noopener" class="btn-sm">DAIR.AI Prompting Guide</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-step">
+          <div class="step-dot"><div class="step-num">3</div></div>
+          <div class="step-body">
+            <h3>Stage 3 — Intermediate Strategies <span style="font-size:.78rem;font-weight:400;color:var(--muted)">(Intermediate · Free)</span></h3>
+            <p class="step-meta">4–6 CPD credits · After Stage 2</p>
+            <p>Explore chain-of-thought reasoning, step-by-step decomposition, and structured output formatting (JSON, tables, bullet lists). Apply these to NHS document drafting and summarisation tasks.</p>
+            <div style="margin-top:.8rem;display:flex;flex-wrap:wrap;gap:.5rem">
+              <a href="https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/" target="_blank" rel="noopener" class="btn-sm">DeepLearning.AI – ChatGPT Prompt Eng. (Free)</a>
+              <a href="https://www.youtube.com/watch?v=H4YK_7MAckk" target="_blank" rel="noopener" class="btn-sm">▶ Chain-of-Thought Prompting (YouTube)</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-step">
+          <div class="step-dot"><div class="step-num">4</div></div>
+          <div class="step-body">
+            <h3>Stage 4 — Advanced Techniques <span style="font-size:.78rem;font-weight:400;color:var(--muted)">(Advanced · Free)</span></h3>
+            <p class="step-meta">6–8 CPD credits · After Stage 3</p>
+            <p>Master tree-of-thought, self-consistency, ReAct prompting, and meta-prompting. Learn how to write system prompts and personas for NHS-facing AI tools and copilots.</p>
+            <div style="margin-top:.8rem;display:flex;flex-wrap:wrap;gap:.5rem">
+              <a href="https://www.anthropic.com/learn" target="_blank" rel="noopener" class="btn-sm">Anthropic Academy – Prompt Engineering (Free)</a>
+              <a href="https://www.youtube.com/watch?v=nt63k3bfXS0" target="_blank" rel="noopener" class="btn-sm">▶ Advanced Prompting Techniques (YouTube)</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-step">
+          <div class="step-dot"><div class="step-num">5</div></div>
+          <div class="step-body">
+            <h3>Stage 5 — Prompt Systems &amp; APIs <span style="font-size:.78rem;font-weight:400;color:var(--muted)">(Advanced · Free)</span></h3>
+            <p class="step-meta">8–12 CPD credits · Technical track — developers &amp; digital leads</p>
+            <p>Design reusable prompt templates, system message architectures, and prompt chaining pipelines. Understand RAG (Retrieval Augmented Generation) and how to build safe, auditable prompt systems for NHS deployments.</p>
+            <div style="margin-top:.8rem;display:flex;flex-wrap:wrap;gap:.5rem">
+              <a href="https://www.deeplearning.ai/short-courses/building-systems-with-chatgpt/" target="_blank" rel="noopener" class="btn-sm">DeepLearning.AI – Building Systems (Free)</a>
+              <a href="https://www.youtube.com/watch?v=ahnGLM-RC1Y" target="_blank" rel="noopener" class="btn-sm">▶ RAG Explained (YouTube)</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-step">
+          <div class="step-dot"><div class="step-num" style="background:var(--orange)">6</div></div>
+          <div class="step-body">
+            <h3>Stage 6 — NHS Practical Capstone <span style="font-size:.78rem;font-weight:400;color:var(--muted)">(Advanced · Free)</span></h3>
+            <p class="step-meta">5 bonus CPD credits · Apply everything in your own organisation</p>
+            <p>Write and test a real prompt library for one NHS workflow of your choice — e.g. patient letter drafting, ward handover summaries, or policy Q&amp;A. Submit to uPull.ai for a shareable CPD record and case study consideration.</p>
+            <div style="margin-top:.8rem;display:flex;flex-wrap:wrap;gap:.5rem">
+              <a href="mailto:info@upull.ai" class="btn-sm">📩 Submit your capstone to uPull.ai</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </div>
+
+  <!-- VIEW 3 — FULL COURSE LIBRARY -->
+  <div id="section-library" class="academy-view">
+    <section style="padding-top:.5rem">
+      <h2 class="section-title">Full Course Library</h2>
+      <p class="section-subtitle">Every course in the Prompt Engineering pathway, in one searchable library — from absolute beginner to advanced. All resources marked Free are free for NHS and public sector staff. Click any course to go directly to the provider.</p>
+
+      <div class="path-cards">
+        <div class="path-card beginner"><h3>Beginner Track</h3><p>No prior AI experience needed. Learn what prompting is and write your first effective prompts.</p></div>
+        <div class="path-card intermediate"><h3>Intermediate Track</h3><p>Core and advanced techniques — chain-of-thought, few-shot, structured outputs and NHS applications.</p></div>
+        <div class="path-card advanced"><h3>Advanced Track</h3><p>Prompt system design, API integration, RAG, and production-ready prompt architecture.</p></div>
+      </div>
+
+      <div class="filter-bar">
+        <div class="search-wrap">
+          <span class="search-icon"></span>
+          <input type="text" id="course-search" placeholder="Search courses, providers..." oninput="filterCourses()" />
+        </div>
+        <button class="filter-pill active" onclick="setFilter('all',this)">All</button>
+        <button class="filter-pill" onclick="setFilter('beginner',this)">Beginner</button>
+        <button class="filter-pill" onclick="setFilter('intermediate',this)">Intermediate</button>
+        <button class="filter-pill" onclick="setFilter('advanced',this)">Advanced</button>
+        <button class="filter-pill" onclick="setFilter('free',this)">Free Only</button>
+        <button class="filter-pill" onclick="setFilter('youtube',this)">YouTube</button>
+      </div>
+
+      <div class="cards-grid" id="course-grid"></div>
+    </section>
+  </div>
+
+</div><!-- .academy-shell -->
+
+<footer>
+  <p><strong>uPull<span style="color:var(--orange)">.</span>ai</strong> · Prompt Engineering Pathway · Free for NHS &amp; Public Sector</p>
+  <p style="margin-top:.5rem;font-size:.75rem"><a href="../academy.html" style="color:#94a3b8">Back to uGrowX Academy</a></p>
+  <p style="margin-top:.5rem;font-size:.75rem;opacity:.6">© 2026 uPull.ai Ltd. All rights reserved. Courses linked are third-party providers — verify suitability and current availability before enrolling. CPD credits are indicative and set by uPull.ai unless otherwise stated.</p>
+</footer>
+
+<script>
+const courses = [
+  {
+    id: "pe1",
+    level: "beginner",
+    free: true,
+    youtube: true,
+    cpd: 2,
+    provider: "Andrej Karpathy (YouTube)",
+    title: "Intro to Large Language Models",
+    desc: "A one-hour lecture by the former Director of AI at Tesla explaining how LLMs work, why prompt wording matters, and the intuition behind tokens and context windows. Ideal starting point for all NHS staff.",
+    expectation: "Explain in plain language what an LLM is and why prompts affect its output.",
+    cost: "Free",
+    audience: "All NHS staff — no tech background needed",
+    url: "https://www.youtube.com/watch?v=zjkBMFhNj_g"
+  },
+  {
+    id: "pe2",
+    level: "beginner",
+    free: true,
+    youtube: false,
+    cpd: 3,
+    provider: "Learn Prompting (Open Guide)",
+    title: "Learn Prompting — Beginner Modules",
+    desc: "The most widely used open-source prompting guide. The beginner section covers basics, instruction clarity, and common pitfalls — fully free, no sign-up required.",
+    expectation: "Write a clear, well-structured prompt for a routine NHS task.",
+    cost: "Free",
+    audience: "All NHS staff",
+    url: "https://learnprompting.org/docs/intro"
+  },
+  {
+    id: "pe3",
+    level: "beginner",
+    free: true,
+    youtube: true,
+    cpd: 2,
+    provider: "Google (YouTube)",
+    title: "Prompting Essentials — Google AI",
+    desc: "Google's short YouTube series on prompting fundamentals including instruction writing, persona setting and iterative refinement — aimed at professionals using Gemini and Workspace AI tools.",
+    expectation: "Use Google Workspace AI tools confidently with well-crafted prompts.",
+    cost: "Free",
+    audience: "Admin, management, and operational NHS staff using Google Workspace",
+    url: "https://www.youtube.com/watch?v=sTeoEFzVNSc"
+  },
+  {
+    id: "pe4",
+    level: "beginner",
+    free: true,
+    youtube: false,
+    cpd: 3,
+    provider: "DAIR.AI / Prompting Guide",
+    title: "Prompt Engineering Guide — Foundations",
+    desc: "The DAIR.AI Prompt Engineering Guide is the most-cited reference in the field. The introductory sections cover zero-shot, one-shot, few-shot and role prompting with healthcare-applicable examples.",
+    expectation: "Apply zero-shot, one-shot and few-shot techniques to an NHS writing task.",
+    cost: "Free",
+    audience: "All staff — especially those drafting documents or emails with AI",
+    url: "https://www.promptingguide.ai/"
+  },
+  {
+    id: "pe5",
+    level: "beginner",
+    free: true,
+    youtube: true,
+    cpd: 2,
+    provider: "IBM Technology (YouTube)",
+    title: "What is Prompt Engineering?",
+    desc: "IBM Technology's explainer video on prompt engineering — covers why it matters, how it differs from programming, and gives NHS-relevant examples of good vs poor prompts.",
+    expectation: "Describe what prompt engineering is and why it improves AI outputs.",
+    cost: "Free",
+    audience: "Managers, clinical leads and digital champions new to AI",
+    url: "https://www.youtube.com/watch?v=1c9iyoVIwDs"
+  },
+  {
+    id: "pe6",
+    level: "intermediate",
+    free: true,
+    youtube: false,
+    cpd: 4,
+    provider: "DeepLearning.AI",
+    title: "ChatGPT Prompt Engineering for Developers",
+    desc: "The most popular free prompt engineering short course online, co-created by OpenAI and DeepLearning.AI. Covers summarisation, inference, transforming and expanding — highly applicable to NHS report writing and document work.",
+    expectation: "Use summarise, infer, transform and expand prompting techniques for NHS documents.",
+    cost: "Free (audit)",
+    audience: "Digital champions, clinical informaticists, operational leads",
+    url: "https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/"
+  },
+  {
+    id: "pe7",
+    level: "intermediate",
+    free: true,
+    youtube: true,
+    cpd: 3,
+    provider: "DeepLearning.AI (YouTube)",
+    title: "Chain-of-Thought Prompting Explained",
+    desc: "Video walkthrough of chain-of-thought prompting — teaching AI models to reason step-by-step. Critical for clinical summarisation, differential reasoning support, and structured patient letter drafting.",
+    expectation: "Write a chain-of-thought prompt that guides an AI through a multi-step NHS task.",
+    cost: "Free",
+    audience: "Clinical staff, policy authors, anyone using AI for reasoning-heavy tasks",
+    url: "https://www.youtube.com/watch?v=H4YK_7MAckk"
+  },
+  {
+    id: "pe8",
+    level: "intermediate",
+    free: true,
+    youtube: false,
+    cpd: 5,
+    provider: "Anthropic Academy",
+    title: "Prompt Engineering Interactive Tutorial",
+    desc: "Anthropic's official hands-on prompting course for Claude — covers clarity, structure, role assignment, XML formatting, and avoiding hallucination. Free and browser-based with live exercises.",
+    expectation: "Build a structured NHS-facing prompt using Anthropic's best-practice framework.",
+    cost: "Free",
+    audience: "Digital leads, content authors, clinical informaticists",
+    url: "https://www.anthropic.com/learn"
+  },
+  {
+    id: "pe9",
+    level: "intermediate",
+    free: true,
+    youtube: true,
+    cpd: 3,
+    provider: "Microsoft (YouTube)",
+    title: "Prompt Engineering with Azure OpenAI",
+    desc: "Microsoft's official YouTube walkthrough of prompt design in Azure OpenAI — covering system messages, temperature, and structured outputs relevant to NHS Azure deployments.",
+    expectation: "Configure a system message and structured output prompt for an NHS Azure OpenAI deployment.",
+    cost: "Free",
+    audience: "NHS digital leads and technical staff using Microsoft AI products",
+    url: "https://www.youtube.com/watch?v=ULG_oMExqyg"
+  },
+  {
+    id: "pe10",
+    level: "intermediate",
+    free: true,
+    youtube: false,
+    cpd: 4,
+    provider: "Learn Prompting (Open Guide)",
+    title: "Learn Prompting — Intermediate Techniques",
+    desc: "Covers self-consistency, generated knowledge, least-to-most prompting, and combining techniques. Strong practical examples applicable to NHS policy Q&A and operational planning tasks.",
+    expectation: "Apply self-consistency and least-to-most prompting to a complex NHS question.",
+    cost: "Free",
+    audience: "Staff comfortable with basic prompting ready to advance their technique",
+    url: "https://learnprompting.org/docs/intermediate/self_consistency"
+  },
+  {
+    id: "pe11",
+    level: "intermediate",
+    free: true,
+    youtube: true,
+    cpd: 3,
+    provider: "Sam Witteveen (YouTube)",
+    title: "Few-Shot Prompting Deep Dive",
+    desc: "Detailed YouTube tutorial on few-shot examples — how to select, format and sequence examples for best performance. Includes NHS letter and report formatting examples.",
+    expectation: "Select and format examples for a few-shot prompt that produces consistent NHS document output.",
+    cost: "Free",
+    audience: "Anyone producing templated documents, letters or reports with AI",
+    url: "https://www.youtube.com/watch?v=dOxUroR57xs"
+  },
+  {
+    id: "pe12",
+    level: "advanced",
+    free: true,
+    youtube: true,
+    cpd: 5,
+    provider: "Andrej Karpathy (YouTube)",
+    title: "Deep Dive: How to Use LLMs Effectively",
+    desc: "Karpathy's comprehensive guide to getting consistent, reliable output from LLMs — covering temperature, context window management, hallucination mitigation and evaluation frameworks for production NHS use.",
+    expectation: "Design a prompting strategy that minimises hallucination risk for a patient-facing NHS tool.",
+    cost: "Free",
+    audience: "Digital leads, clinical informaticists and technical teams deploying AI in NHS settings",
+    url: "https://www.youtube.com/watch?v=_ZvnD73m40o"
+  },
+  {
+    id: "pe13",
+    level: "advanced",
+    free: true,
+    youtube: false,
+    cpd: 8,
+    provider: "DeepLearning.AI",
+    title: "Building Systems with the ChatGPT API",
+    desc: "DeepLearning.AI's free short course on chaining prompts, classifying inputs, checking outputs, and building multi-step prompt pipelines — the engineering backbone for NHS AI products.",
+    expectation: "Build a multi-step prompt chain that classifies, processes and validates an NHS workflow.",
+    cost: "Free (audit)",
+    audience: "Developers, digital leads and technical architects building NHS AI tools",
+    url: "https://www.deeplearning.ai/short-courses/building-systems-with-chatgpt/"
+  },
+  {
+    id: "pe14",
+    level: "advanced",
+    free: true,
+    youtube: true,
+    cpd: 4,
+    provider: "AI Explained (YouTube)",
+    title: "Tree of Thoughts &amp; Advanced Reasoning",
+    desc: "Clear YouTube explainer on tree-of-thought, ReAct, and self-reflection prompting — the techniques behind AI systems that reason over complex clinical or operational problems.",
+    expectation: "Apply tree-of-thought prompting to a complex NHS planning or clinical reasoning scenario.",
+    cost: "Free",
+    audience: "Advanced users working on clinical decision support or strategic planning AI tools",
+    url: "https://www.youtube.com/watch?v=nt63k3bfXS0"
+  },
+  {
+    id: "pe15",
+    level: "advanced",
+    free: true,
+    youtube: false,
+    cpd: 6,
+    provider: "DeepLearning.AI",
+    title: "LangChain for LLM Application Development",
+    desc: "Free short course on using LangChain to build modular, reusable prompt systems — covering memory, chains, agents and document Q&A, directly applicable to NHS knowledge management tools.",
+    expectation: "Build a document Q&A system using LangChain applicable to an NHS policy library.",
+    cost: "Free (audit)",
+    audience: "Developers and technical digital leads building NHS AI applications",
+    url: "https://www.deeplearning.ai/short-courses/langchain-for-llm-application-development/"
+  },
+  {
+    id: "pe16",
+    level: "advanced",
+    free: true,
+    youtube: true,
+    cpd: 4,
+    provider: "IBM Technology (YouTube)",
+    title: "RAG — Retrieval Augmented Generation Explained",
+    desc: "IBM's clear explainer on RAG — how to ground AI output in verified NHS documents, guidelines and policies to reduce hallucination and improve trust in clinical settings.",
+    expectation: "Explain how RAG reduces hallucination risk and design a RAG prompt strategy for NHS clinical guidelines.",
+    cost: "Free",
+    audience: "Technical leads designing safe, evidence-grounded NHS AI tools",
+    url: "https://www.youtube.com/watch?v=ahnGLM-RC1Y"
+  },
+  {
+    id: "pe17",
+    level: "advanced",
+    free: true,
+    youtube: false,
+    cpd: 10,
+    provider: "DAIR.AI / Prompting Guide",
+    title: "Advanced Prompt Engineering — Full Guide",
+    desc: "The complete DAIR.AI advanced section covering adversarial prompting, prompt injection risks, reliability, and evaluation — essential for NHS teams responsible for safe AI deployment and governance.",
+    expectation: "Assess prompt injection risk and design a safe, auditable prompt architecture for an NHS deployment.",
+    cost: "Free",
+    audience: "Clinical safety officers, IG leads and technical architects governing NHS AI tools",
+    url: "https://www.promptingguide.ai/techniques"
+  },
+  {
+    id: "pe18",
+    level: "advanced",
+    free: true,
+    youtube: false,
+    cpd: 5,
+    provider: "Microsoft Learn",
+    title: "Prompt Engineering with Azure AI Studio",
+    desc: "Microsoft's official free learning path on designing and evaluating prompts within Azure AI Studio — covering system prompts, safety filters and responsible AI deployment for NHS Azure environments.",
+    expectation: "Configure, test and evaluate a prompt with safety filters in Azure AI Studio.",
+    cost: "Free",
+    audience: "NHS IT teams and digital leads managing Azure-based AI deployments",
+    url: "https://learn.microsoft.com/en-us/azure/ai-studio/"
+  }
+];
+
+let activeFilter = 'all';
+
+function renderCards(list) {
+  const grid = document.getElementById('course-grid');
+  grid.innerHTML = '';
+  if (!list.length) {
+    grid.innerHTML = '<p style="color:var(--muted);font-size:.9rem">No courses match your search. Try a different term or filter.</p>';
+    return;
+  }
+  list.forEach(c => {
+    const levelLabel = c.level.charAt(0).toUpperCase() + c.level.slice(1);
+    grid.innerHTML += `
+      <div class="course-card" data-level="${c.level}" data-free="${c.free}" data-youtube="${c.youtube}">
+        <div class="card-top">
+          <span class="level-tag ${c.level}">${levelLabel}</span>
+          ${c.free ? '<span class="free-tag">Free</span>' : ''}
+          ${c.youtube ? '<span class="free-tag" style="background:#fff5f5;color:#dc2626;border-color:#fecaca;">▶ YouTube</span>' : ''}
+        </div>
+        <div class="card-provider">${c.provider}</div>
+        <div class="card-title">${c.title}</div>
+        <div class="card-desc">${c.desc}</div>
+        <div class="card-expect"><strong>You will be able to:</strong>${c.expectation}</div>
+        <div class="card-meta">
+          <span>👥 ${c.audience}</span>
+          <span>💷 ${c.cost}</span>
+        </div>
+        <div class="card-footer">
+          <span class="card-cpd">📚 ${c.cpd} CPD credit${c.cpd !== 1 ? 's' : ''}</span>
+          <a href="${c.url}" target="_blank" rel="noopener" class="btn-sm">Go to course →</a>
+        </div>
+      </div>`;
+  });
+}
+
+function filterCourses() {
+  const q = document.getElementById('course-search').value.toLowerCase();
+  const filtered = courses.filter(c => {
+    const matchFilter =
+      activeFilter === 'all' ? true :
+      activeFilter === 'free' ? c.free :
+      activeFilter === 'youtube' ? c.youtube :
+      c.level === activeFilter;
+    const matchSearch = !q || c.title.toLowerCase().includes(q) || c.provider.toLowerCase().includes(q) || c.desc.toLowerCase().includes(q);
+    return matchFilter && matchSearch;
+  });
+  renderCards(filtered);
+}
+
+function setFilter(f, btn) {
+  activeFilter = f;
+  document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  filterCourses();
+}
+
+function showSection(id) {
+  document.querySelectorAll('.academy-view').forEach(v => v.classList.remove('active-view'));
+  document.querySelectorAll('.section-nav-btn').forEach(b => b.classList.remove('active'));
+  const el = document.getElementById('section-' + id);
+  if (el) el.classList.add('active-view');
+  const btn = document.querySelector(`[data-section="${id}"]`);
+  if (btn) btn.classList.add('active');
+  if (id === 'library') renderCards(courses);
+}
+
+// Initial render
+renderCards(courses);
+</script>
+</body>
+</html>
